@@ -22,14 +22,14 @@ Para executar esta aplicação, você precisará dos seguintes requisitos:
 
 Antes de executar a aplicação, você precisará configurar o banco de dados PostgreSQL. Siga os passos abaixo:
 
-1. Crie um banco de dados chamado `pessoas` no PostgreSQL
+1. Crie um banco de dados chamado `perssoas` no PostgreSQL
 2. Abra o arquivo `application.properties` localizado em `src/main/resources`
 3. Edite as seguintes propriedades com as suas informações de banco de dados:
 
 ~~~properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/personal
-spring.datasource.username=postgres
-spring.datasource.password=admin
+spring.datasource.url=jdbc:postgresql://localhost:5432/pessoas
+spring.datasource.username=SEU USERNAME
+spring.datasource.password=SUA SENHA
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 ~~~
