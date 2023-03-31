@@ -8,7 +8,7 @@ Este projeto é um exemplo de uma aplicação CRUD (Create, Read, Update, Delete
 - JPA
 - Banco de dados PostgreSQL
 
-A aplicação permite criar, visualizar, atualizar e excluir pessoas do banco de dados. Cada pessoa é definida por um nome, sobrenome, CPF e data de nascimento. 
+A aplicação permite criar, visualizar, atualizar e excluir pessoas do banco de dados. Cada pessoa é definida por um nome e idade.
 
 ## Requisitos
 
@@ -27,9 +27,9 @@ Antes de executar a aplicação, você precisará configurar o banco de dados Po
 3. Edite as seguintes propriedades com as suas informações de banco de dados:
 
 ~~~properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/personal
-spring.datasource.username=postgres
-spring.datasource.password=admin
+spring.datasource.url=jdbc:postgresql://localhost:5432/pessoas
+spring.datasource.username=SEU USERNAME
+spring.datasource.password=SUA SENHA
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 ~~~
