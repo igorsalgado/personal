@@ -8,7 +8,7 @@ Este projeto é um exemplo de uma aplicação CRUD (Create, Read, Update, Delete
 - JPA
 - Banco de dados PostgreSQL
 
-A aplicação permite criar, visualizar, atualizar e excluir pessoas do banco de dados. Cada pessoa é definida por um nome, sobrenome, CPF e data de nascimento. 
+A aplicação permite criar, visualizar, atualizar e excluir pessoas do banco de dados. Cada pessoa é definida por um nome e idade.
 
 ## Requisitos
 
