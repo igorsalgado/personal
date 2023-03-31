@@ -20,9 +20,12 @@ public class PessoaController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/salvarpessoa") // Indica que o método deve ser executado quando a requisição for do tipo POST e o valor for /salvarpessoa
-    public String salvar(Pessoa pessoa) {
+    public ModelAndView salvar(Pessoa pessoa) {
         pessoaRepository.save(pessoa);
-        return "cadastro/cadastropessoa";
+        ModelAndView andView = new ModelAndView("cadastro/cadastropessoa"); // Indica que a página a ser carregada é cadastro/cadastropessoa
+            Iterable<Pessoa> pessoasIt = pessoaRepository.findAll(); // Retorna todos os registros da tabela pessoa
+            andView.addObject("pessoas", pessoasIt); // Adiciona o objeto pessoasIt no atributo pessoas
+        return andView; // Retorna a view como resposta
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/listarpessoa")
