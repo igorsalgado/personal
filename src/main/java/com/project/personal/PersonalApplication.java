@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan(basePackages = "com.project.personal.model") // Habilita o uso de entidades
 @ComponentScan(basePackages = {"com.*"}) // Habilita o uso de componentes
 @EnableTransactionManagement // Habilita o gerenciamento de transações
-@EnableJpaRepositories(basePackages = {"com.project.personal.repository"})
+@EnableJpaRepositories(basePackages = {"com.project.personal.repository"}) // Habilita o uso de repositórios
 public class PersonalApplication {
 
     public static void main(String[] args) {

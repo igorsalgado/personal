@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+
 <form action="salvarpessoa" method="post">
     <label for="name">Name</label>
     <input type="text" name="name" id="name">
@@ -16,5 +17,24 @@
 
     <input type="submit" value="Salvar">
 </form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Idade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pessoa : ${pessoas}"> <!-- ${pessoas} é o nome da variável que está no controller -->
+        <td th:text="${pessoa.id}"></td>
+        <td th:text="${pessoa.name}"></td>
+        <td th:text="${pessoa.age}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
 </body>
 </html>
