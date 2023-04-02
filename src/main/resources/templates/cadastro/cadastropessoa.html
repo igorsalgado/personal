@@ -21,10 +21,21 @@
     <input type="text" name="name" id="name" th:field="*{name}">
     <label for="age">Age</label>
     <input type="text" name="age" id="age" th:field="*{age}">
-
     <input class="waves-effect waves-light btn" type="submit" value="Salvar">
+    <a class="waves-effect waves-light btn" th:href="@{/listarpessoas}">Listar pessoas</a>
 </form>
-<a class="waves-effect waves-light btn" th:href="@{/listarpessoas}">Listar pessoas</a>
+
+<br/>
+<br/>
+
+<form action="pesquisarpessoa" method="post">
+    <label for="pesquisanome">Pesquisa por nome:</label>
+    <input type="text" name="pesquisanome" id="pesquisanome">
+    <input class="waves-effect waves-light btn" type="submit" value="Pesquisar">
+</form>
+
+<br/>
+<br/>
 
 <table>
     <thead>
@@ -35,7 +46,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="pessoa : ${listarPessoas}"> <!-- ${listarPessoas} é o nome da variável que está no controller -->
+    <tr th:each="pessoa : ${pessoas}"> <!-- ${pessoas} é o nome da variável que está no controller -->
         <td th:text="${pessoa.id}"></td>
         <td th:text="${pessoa.name}"></td>
         <td th:text="${pessoa.age}"></td>

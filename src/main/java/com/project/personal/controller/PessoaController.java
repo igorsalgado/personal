@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.PostRemove;
 import java.util.Optional;
 
 @SuppressWarnings("ALL")
@@ -15,6 +16,7 @@ public class PessoaController {
 
     @Autowired // Indica que a classe deve ser injetada
     private PessoaRepository pessoaRepository;
+
     ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa"); // Indica qual view será retornada
 
     @GetMapping("/cadastropessoa")
@@ -33,9 +35,9 @@ public class PessoaController {
     }
 
     @GetMapping("/listarpessoas")
-    public ModelAndView listarPessoas() {
+    public ModelAndView listar() {
         Iterable<Pessoa> pessoasIt = pessoaRepository.findAll(); // Retorna todos os registros da tabela pessoa
-        modelAndView.addObject("listarPessoas", pessoasIt); // Adiciona o objeto pessoasIt no atributo pessoas
+        modelAndView.addObject("pessoas", pessoasIt); // Adiciona o objeto pessoasIt no atributo pessoas
         modelAndView.addObject(("pessoaobj"), new Pessoa()); // Adiciona o objeto pessoa no atributo pessoaobj
         return modelAndView; // Retorna a view como resposta
 
@@ -58,6 +60,14 @@ public class PessoaController {
 
     }
 
+    @PostMapping("**/pesquisarpessoa")
+    public ModelAndView pesquisar(@RequestParam("pesquisanome") String nomepesquisa){ // @RequestParam("pesquisanome") indica que o parâmetro nomepesquisa será injetado no atributo pesquisanome
+
+        modelAndView.addObject("pessoas", pessoaRepository.findPessoaByName(nomepesquisa));
+        modelAndView.addObject("pessoaobj", new Pessoa()); // Adiciona o objeto pessoa no atributo pessoaobj
+
+        return modelAndView;
+    }
 
 
 
