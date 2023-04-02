@@ -14,15 +14,17 @@
 </head>
 <body>
 
-<form action="salvarpessoa" method="post">
+<form action="salvarpessoa" method="post" th:object="${pessoaobj}"> <!-- ${pessoaobj} é o nome da variável que está no controller -->
+    <label for="id">Id</label>
+    <input name="id" id="id" readonly="readonly" th:field="*{id}">
     <label for="name">Name</label>
-    <input type="text" name="name" id="name">
+    <input type="text" name="name" id="name" th:field="*{name}">
     <label for="age">Age</label>
-    <input type="text" name="age" id="age">
+    <input type="text" name="age" id="age" th:field="*{age}">
 
     <input class="waves-effect waves-light btn" type="submit" value="Salvar">
 </form>
-<a class="waves-effect waves-light btn" href="/listarpessoa">Listar pessoa</a>
+<a class="waves-effect waves-light btn" th:href="@{/listarpessoas}">Listar pessoas</a>
 
 <table>
     <thead>
@@ -33,10 +35,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="pessoa : ${pessoas}"> <!-- ${pessoas} é o nome da variável que está no controller -->
+    <tr th:each="pessoa : ${listarPessoas}"> <!-- ${listarPessoas} é o nome da variável que está no controller -->
         <td th:text="${pessoa.id}"></td>
         <td th:text="${pessoa.name}"></td>
         <td th:text="${pessoa.age}"></td>
+        <td><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}"> Editar</a> </td>
     </tr>
     </tbody>
 </table>

@@ -4,37 +4,51 @@ import com.project.personal.model.Pessoa;
 import com.project.personal.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller // Indica que a classe é um controlador
 public class PessoaController {
 
     @Autowired // Indica que a classe deve ser injetada
     private PessoaRepository pessoaRepository;
+    ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa"); // Indica qual view será retornada
 
-    @RequestMapping(method = RequestMethod.GET, value = "/cadastropessoa") // Indica que o método deve ser executado quando a requisição for do tipo GET e o valor for /cadastropessoa
-    public String inicio() {
-        return "cadastro/cadastropessoa";
+    @GetMapping("/cadastropessoa")
+    public ModelAndView inicio() {
+        modelAndView.addObject("pessoaobj",new Pessoa()); // Adiciona o objeto pessoa no atributo pessoaobj
+        return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/salvarpessoa") // Indica que o método deve ser executado quando a requisição for do tipo POST e o valor for /salvarpessoa
+    @PostMapping("*/salvarpessoa") // Indica que o método será chamado quando a url for /salvarpessoa e ** ignora qualquer coisa que vier antes
     public ModelAndView salvar(Pessoa pessoa) {
         pessoaRepository.save(pessoa);
-        ModelAndView andView = new ModelAndView("cadastro/cadastropessoa"); // Indica que a página a ser carregada é cadastro/cadastropessoa
-            Iterable<Pessoa> pessoasIt = pessoaRepository.findAll(); // Retorna todos os registros da tabela pessoa
-            andView.addObject("pessoas", pessoasIt); // Adiciona o objeto pessoasIt no atributo pessoas
-        return andView; // Retorna a view como resposta
+        Iterable<Pessoa> pessoasIt = pessoaRepository.findAll(); // Retorna todos os registros da tabela pessoa
+        modelAndView.addObject("pessoas", pessoasIt); // Adiciona o objeto pessoasIt no atributo pessoas
+        modelAndView.addObject("pessoaobj",new Pessoa()); // Adiciona o objeto pessoa no atributo pessoaobj
+        return modelAndView; // Retorna a view como resposta
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/listarpessoa")
-    public ModelAndView pessoas() {
-        ModelAndView andView = new ModelAndView("cadastro/cadastropessoa"); // Indica que a página a ser carregada é cadastro/cadastropessoa
+    @GetMapping("/listarpessoas")
+    public ModelAndView listarPessoas() {
         Iterable<Pessoa> pessoasIt = pessoaRepository.findAll(); // Retorna todos os registros da tabela pessoa
-        andView.addObject("pessoas", pessoasIt); // Adiciona o objeto pessoasIt no atributo pessoas
-        return andView; // Retorna a view como resposta
+        modelAndView.addObject("listarPessoas", pessoasIt); // Adiciona o objeto pessoasIt no atributo pessoas
+        modelAndView.addObject(("pessoaobj"), new Pessoa()); // Adiciona o objeto pessoa no atributo pessoaobj
+        return modelAndView; // Retorna a view como resposta
+
     }
+
+    @GetMapping("/editarpessoa/{idpessoa}")
+    public ModelAndView editar(@PathVariable("idpessoa") Long idpessoa) {
+        Optional<Pessoa> pessoa = pessoaRepository.findById(idpessoa); // Retorna o registro da tabela pessoa que possui o id igual ao idpessoa
+        modelAndView.addObject("pessoaobj", pessoa.get()); // Adiciona o objeto pessoa no atributo pessoaobj
+        return modelAndView; // Injeta o objeto pessoa no formulário
+
+    }
+
+
 
 
 }
